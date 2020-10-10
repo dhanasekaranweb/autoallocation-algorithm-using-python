@@ -13,7 +13,7 @@ class allocation:
 		self.autoallocation_execution()
 
 	def autoallocation_execution(self):
-		allocation = AutoAllocation(self.latitude,self.longitude,self.allocation_logic)
+		allocation = AutoAllocation(self.latitude,self.longitude,self.allocation_logic,[])
 		print(allocation.output_data)
 
 

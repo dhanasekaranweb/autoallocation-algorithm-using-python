@@ -5,14 +5,15 @@ import math
 
 class AutoAllocation:
 
-	def __init__(self,latitude,longitude,allocation_logic):
-		self.latitude		= latitude
-		self.longitude		= longitude
-		self.R 				= 6373.0
-		self.distance_data	= []
-		self.sorted_array	= []
-		self.output_data	= []
-		self.allocation_logic = allocation_logic
+	def __init__(self,latitude,longitude,allocation_logic,skipped_ids):
+		self.latitude			= latitude
+		self.longitude			= longitude
+		self.R 					= 6373.0
+		self.distance_data		= []
+		self.sorted_array		= []
+		self.output_data		= []
+		self.allocation_logic 	= allocation_logic
+		self.skipped_ids		= skipped_ids
 
 		self.distance_calculation()
 
@@ -21,8 +22,13 @@ class AutoAllocation:
 		loads 	= open("data.json")
 		data 	= json.load(loads)
 
-		datas = list(filter(lambda x:x["id"]!=[1,2],data))
-		print(datas)
+		#datas = list(filter(lambda x:x["id"]!=1,data))
+		if(len(self.skipped_ids) > 0):
+			data = [x for x in data if x["id"] not in self.skipped_ids]
+		else:
+			data = data
+
+		print(data)
 
 		#using Haversine formula for the distance calculation
 
